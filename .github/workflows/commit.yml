@@ -1,0 +1,36 @@
+name: Atualizar Arquivo do Canvas
+
+on:
+  workflow_dispatch: # Permite disparar manualmente
+  schedule:
+    - cron: '0 18 * * *' # Executa todos os dias às 18:00 UTC
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout do repositório
+    - name: Checkout do Repositório
+      uses: actions/checkout@v3
+
+    # Configurar repositório local
+    - name: Configurar Git
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "bot@example.com"
+
+    # Criar ou atualizar o arquivo
+    - name: Atualizar Arquivo
+      run: |
+        echo "# Atualização do Canvas" > caminho/para/arquivo.txt
+        echo "Conteúdo atualizado automaticamente em $(date)" >> caminho/para/arquivo.txt
+
+    # Fazer commit e enviar ao GitHub
+    - name: Fazer Commit e Push
+      run: |
+        git add .
+        git commit -m "Atualização automática do Canvas: $(date)"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
