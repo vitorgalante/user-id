@@ -1,3 +1,4 @@
+// Versão do Código: 2025-01-14-001
 
 // Gerenciador genérico de armazenamento
 class StorageManager {
